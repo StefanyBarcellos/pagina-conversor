@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Conversor de Moeda</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 40px; background:#f5f5f5; }
+    label, input, button { display:block; margin:10px 0; }
+    #resultado { margin-top:20px; font-weight:bold; }
+  </style>
+</head>
+<body>
+  <h2>Conversor de Real para Dólar</h2>
+
+  <label for="real">Valor em Real (R$):</label>
+  <input type="number" id="real" step="0.01">
+
+  <label for="cotacao">Cotação do Dólar (R$):</label>
+  <input type="number" id="cotacao" step="0.01">
+
+  <!-- type="button" evita recarregar a página -->
+  <button type="button" onclick="converter()">Converter</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function converter () {
+      const realInput    = document.getElementById('real');
+      const cotacaoInput = document.getElementById('cotacao');
+      const saida        = document.getElementById('resultado');
+
+      // aceita ponto ou vírgula como separador decimal
+      const real    = Number(realInput.value.replace(',', '.'));
+      const cotacao = Number(cotacaoInput.value.replace(',', '.'));
+
+      if (!real || !cotacao) {
+        saida.textContent = 'Por favor, insira valores válidos!';
+        saida.style.color = 'red';
+        return;
+      }
+
+      const valorConvertido = real / cotacao;
+      // formata em USD automaticamente
+      saida.textContent = valorConvertido.toLocaleString('en-US',
+        { style: 'currency', currency: 'USD' });
+
+      saida.style.color = 'green';
+    }
+  </script>
+</body>
+</html>
